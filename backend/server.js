@@ -18,10 +18,26 @@ const PORT = process.env.PORT || 5000;
 
 // Security middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true
-}));
+const allowedOrigins = [
+  "http://localhost:3000",
+  process.env.CLIENT_URL,                 // from .env
+  "https://quizeee-opal.vercel.app"      // direct Vercel URL
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log("❌ Blocked by CORS:", origin);
+        callback(new Error("CORS Not Allowed"));
+      }
+    },
+    credentials: true,
+  })
+);
+
 
 // Rate limiting
 const limiter = rateLimit({

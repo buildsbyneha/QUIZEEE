@@ -1,0 +1,52 @@
+/* src/components/Exam/Timer.css */
+.timer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: var(--color-surface);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border);
+  font-weight: 600;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.timer-icon {
+  font-size: var(--text-xl);
+}
+
+.timer-text {
+  font-size: var(--text-lg);
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+  min-width: 70px;
+}
+
+.timer.warning {
+  border-color: var(--color-warning);
+  background: #fffbeb;
+}
+
+.timer.warning .timer-text {
+  color: var(--color-warning);
+}
+
+.timer.critical {
+  border-color: var(--color-error);
+  background: #fef2f2;
+  animation: pulse 1s infinite;
+}
+
+.timer.critical .timer-text {
+  color: var(--color-error);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

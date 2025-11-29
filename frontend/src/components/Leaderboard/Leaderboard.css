@@ -1,0 +1,205 @@
+/* src/components/Leaderboard/Leaderboard.css */
+.leaderboard-container {
+  min-height: calc(100vh - 70px);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  background-color: var(--color-background);
+}
+
+.leaderboard-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.leaderboard-title {
+  font-size: var(--text-4xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.leaderboard-subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+}
+
+.user-rank-card {
+  max-width: 800px;
+  margin: 0 auto var(--spacing-2xl);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.user-rank-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.rank-position {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: var(--spacing-xs);
+}
+
+.rank-label {
+  font-size: var(--text-base);
+  opacity: 0.95;
+}
+
+.user-rank-details {
+  display: flex;
+  gap: var(--spacing-xl);
+}
+
+.rank-detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.rank-detail-label {
+  font-size: var(--text-sm);
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.rank-detail-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+}
+
+.leaderboard-empty {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow-md);
+}
+
+.leaderboard-table {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px 120px 120px;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-background);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px 120px 120px;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-xs);
+  transition: all var(--transition-base);
+  align-items: center;
+}
+
+.table-row:hover {
+  background: var(--color-background);
+  transform: translateX(4px);
+}
+
+.table-row.current-user {
+  background: rgba(99, 102, 241, 0.1);
+  border: 2px solid var(--color-primary);
+}
+
+.col-rank {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.medal {
+  font-size: var(--text-2xl);
+}
+
+.col-name {
+  font-weight: 500;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.you-badge {
+  background: var(--color-primary);
+  color: white;
+  padding: 2px 8px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.col-points,
+.col-exams {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.col-streak {
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .leaderboard-container {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .leaderboard-title {
+    font-size: var(--text-2xl);
+  }
+
+  .user-rank-card {
+    flex-direction: column;
+    padding: var(--spacing-lg);
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 60px 1fr 80px;
+    font-size: var(--text-sm);
+  }
+
+  .col-exams,
+  .col-streak {
+    display: none;
+  }
+
+  .table-header .col-exams,
+  .table-header .col-streak {
+    display: none;
+  }
+}

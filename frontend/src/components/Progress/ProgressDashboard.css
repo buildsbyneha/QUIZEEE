@@ -1,0 +1,295 @@
+/* src/components/Progress/ProgressDashboard.css */
+.progress-dashboard {
+  min-height: calc(100vh - 70px);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  background-color: var(--color-background);
+}
+
+.progress-header {
+  max-width: 1400px;
+  margin: 0 auto var(--spacing-2xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+}
+
+.progress-title {
+  font-size: var(--text-3xl);
+  color: var(--color-text-primary);
+}
+
+.period-selector {
+  display: flex;
+  gap: var(--spacing-xs);
+  background: var(--color-surface);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.period-btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.period-btn:hover {
+  background: var(--color-background);
+}
+
+.period-btn.active {
+  background: var(--color-primary);
+  color: white;
+}
+
+.stats-grid {
+  max-width: 1400px;
+  margin: 0 auto var(--spacing-2xl);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.stat-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-3xl);
+  flex-shrink: 0;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-value {
+  display: block;
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.charts-section {
+  max-width: 1400px;
+  margin: 0 auto var(--spacing-2xl);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+.chart-container {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.chart-title {
+  font-size: var(--text-xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.section-title {
+  font-size: var(--text-2xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.section-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.weak-areas-section,
+.subject-performance-section,
+.badges-section {
+  max-width: 1400px;
+  margin: 0 auto var(--spacing-2xl);
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+.weak-areas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.weak-area-card {
+  background: var(--color-background);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  border-left: 4px solid var(--color-warning);
+}
+
+.weak-area-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.weak-area-topic {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: var(--text-base);
+}
+
+.weak-area-accuracy {
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--color-warning);
+}
+
+.weak-area-stats {
+  margin-bottom: var(--spacing-md);
+}
+
+.weak-area-count {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+  transition: width 1s ease;
+  animation: fillAnimation 1s ease;
+}
+
+@keyframes fillAnimation {
+  from { width: 0%; }
+  to { width: var(--progress-width, 100%); }
+}
+
+.subject-performance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.subject-card {
+  background: var(--color-background);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  border: 2px solid var(--color-border);
+  transition: all var(--transition-base);
+}
+
+.subject-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.subject-name {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.subject-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.subject-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subject-stat-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.subject-stat-value {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .progress-dashboard {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .progress-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .progress-title {
+    font-size: var(--text-2xl);
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .weak-areas-grid,
+  .subject-performance-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,60 @@
+/* src/components/Auth/Signup.css */
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+}
+
+.signup-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--shadow-xl);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.signup-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.signup-title {
+  font-size: var(--text-3xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.signup-subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.signup-footer {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .signup-card {
+    padding: var(--spacing-xl);
+  }
+  
+  .signup-title {
+    font-size: var(--text-2xl);
+  }
+}

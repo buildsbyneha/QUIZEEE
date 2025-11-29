@@ -1,0 +1,146 @@
+/* src/components/Gamification/BadgeAnimation.css */
+.badge-animation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.badge-animation-content {
+  position: relative;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fbbf24;
+  animation: confettiFall 3s linear;
+}
+
+.confetti:nth-child(1) {
+  left: 10%;
+  background: #ef4444;
+  animation-delay: 0s;
+}
+
+.confetti:nth-child(2) {
+  left: 30%;
+  background: #3b82f6;
+  animation-delay: 0.2s;
+}
+
+.confetti:nth-child(3) {
+  left: 50%;
+  background: #10b981;
+  animation-delay: 0.4s;
+}
+
+.confetti:nth-child(4) {
+  left: 70%;
+  background: #8b5cf6;
+  animation-delay: 0.6s;
+}
+
+.confetti:nth-child(5) {
+  left: 90%;
+  background: #ec4899;
+  animation-delay: 0.8s;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.badge-popup {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  animation: badgePop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: var(--shadow-xl);
+  min-width: 400px;
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(0.3) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.badge-icon-huge {
+  font-size: 120px;
+  margin-bottom: var(--spacing-lg);
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.badge-congratulations {
+  font-size: var(--text-3xl);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.badge-title {
+  font-size: var(--text-2xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.badge-message {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.badge-reward {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-success);
+  background: rgba(16, 185, 129, 0.1);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .badge-popup {
+    min-width: 90vw;
+    padding: var(--spacing-xl);
+  }
+
+  .badge-icon-huge {
+    font-size: 80px;
+  }
+}

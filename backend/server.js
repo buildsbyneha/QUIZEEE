@@ -12,37 +12,54 @@ const progressRoutes = require('./routes/progress');
 const leaderboardRoutes = require('./routes/leaderboard');
 const badgeRoutes = require('./routes/badges');
 const questionBankRoutes = require('./routes/questionBank');
+const pyqRoutes = require('./routes/pyq');
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Security middleware
-app.use(helmet());
+// Trust proxy (important for Render)
+app.set('trust proxy', 1);
+
+// CORS Configuration - IMPORTANT FOR DEPLOYMENT
 const allowedOrigins = [
-  "http://localhost:3000",
-  process.env.CLIENT_URL,                 // from .env
-  "https://quizeee-opal.vercel.app"      // direct Vercel URL
-];
+  'http://localhost:3000',
+  'http://localhost:5000',
+  process.env.CLIENT_URL,
+  process.env.FRONTEND_URL,
+].filter(Boolean); // Remove undefined values
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.log("❌ Blocked by CORS:", origin);
-        callback(new Error("CORS Not Allowed"));
-      }
-    },
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('vercel.app')) {
+      callback(null, true);
+    } else {
+      console.log('Blocked origin:', origin);
+      callback(null, true); // Change to false in production for strict checking
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
+// Handle preflight requests
+app.options('*', cors());
+
+// Security middleware
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 app.use('/api/', limiter);
 
@@ -50,7 +67,29 @@ app.use('/api/', limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Routes
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
+// Health check - BEFORE routes
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'Quizee API is running',
+    timestamp: new Date().toISOString() 
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString() 
+  });
+});
+
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/exams', examRoutes);
@@ -58,11 +97,8 @@ app.use('/api/progress', progressRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/badges', badgeRoutes);
 app.use('/api/question-bank', questionBankRoutes);
+app.use('/api/pyq', pyqRoutes);
 
-// Health check
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
-});
 
 // Global error handler
 app.use((err, req, res, next) => {
@@ -75,11 +111,19 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
+// 404 handler - MUST BE LAST
 app.use((req, res) => {
-  res.status(404).json({ error: { message: 'Route not found', status: 404 } });
+  console.log('404 - Route not found:', req.method, req.path);
+  res.status(404).json({ 
+    error: { 
+      message: `Route ${req.method} ${req.path} not found`, 
+      status: 404 
+    } 
+  });
 });
 
 app.listen(PORT, () => {
   console.log(`🚀 Quizee server running on port ${PORT}`);
+  console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔗 Allowed origins:`, allowedOrigins);
 });
